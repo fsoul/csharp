@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net;
 
 namespace ConsoleApplication5
 {
@@ -11,10 +12,14 @@ namespace ConsoleApplication5
     {
         static void Main(string[] args)
         {
-            string path = "input.txt";
+            String path = "input.txt";
+            String uri = "https://github.com/fsoul/csharp/blob/master/input.txt";
+            WebClient client = new WebClient();
+            Stream stream = client.OpenRead(uri);
+            
             try
             {
-                using (StreamReader sr = new StreamReader(path))
+                using (StreamReader sr = new StreamReader(stream))
                 {
                     string line = sr.ReadToEnd();
                     char[] str = line.ToCharArray();
@@ -34,6 +39,7 @@ namespace ConsoleApplication5
                         {
                             max = c;
                         }
+                        Console.WriteLine(i);
                     }
                     Console.WriteLine(max);
                 }
